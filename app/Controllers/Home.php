@@ -12,4 +12,12 @@ class Home extends BaseController
     {
         return view('pages/public/menu');
     }
+    public function cart(): string
+    {
+        return view('pages/public/cart');
+    }
+    public function payment(): string
+    {
+        return view('pages/public/payment');
+    }
 }

@@ -1,0 +1,16 @@
+oke kurang lebih detail sistemnya bakal kaya gini
+•⁠  ⁠2 halaman
+  - halaman admin (dengan multi role akses-> admin, kasir, barista)
+  - halaman user public
+•⁠  ⁠8 module
+  - kelola user
+  - kelola produk
+  - transaksi penjualan public
+  - manual payment & konfirmasi kasir
+  - payment gateway public
+  - processing order (pemindahan status dari customer -> barista -> customer)
+  - login
+  - public API untuk mengambil semua transaksi
+•⁠  ⁠4 user role (admin, kasir, barista, dan public)
+limitasi: 
+•⁠  ⁠proses cetak struk hanya menampilkan preview cetak saja, tidak sampai integrasi ke printer thermal

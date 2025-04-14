@@ -9,3 +9,6 @@ $routes->get('/', 'Home::index');
 
 $routes->get('dashboard', "AdminController::index");
 $routes->get('menu', "Home::menu");
+$routes->get('cart', "Home::cart");
+$routes->get('payment', "Home::payment");
+
