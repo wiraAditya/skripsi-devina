@@ -9,6 +9,11 @@
                 <i class="fas fa-plus-circle mr-2"></i>Tambah 
             </a>
         </div>
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
 
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">

@@ -23,7 +23,24 @@ $routes->group('admin',  function($routes) {
         $routes->post('update/(:num)', 'UserController::update/$1');
         $routes->delete('delete/(:num)', 'UserController::delete/$1');
     });
-    
+    $routes->group('kategori', function($routes) {
+        $routes->get('/', 'KategoriController::index');
+        $routes->get('create', 'KategoriController::create');
+        $routes->post('store', 'KategoriController::store');
+        $routes->get('edit/(:num)', 'KategoriController::edit/$1');
+        $routes->post('update/(:num)', 'KategoriController::update/$1');
+        $routes->delete('delete/(:num)', 'KategoriController::delete/$1');
+    });
+    $routes->group('menu', function($routes) {
+        $routes->get('/', 'MenuController::index');
+        $routes->get('create', 'MenuController::create');
+        $routes->post('store', 'MenuController::store');
+        $routes->get('edit/(:num)', 'MenuController::edit/$1');
+        $routes->post('update/(:num)', 'MenuController::update/$1');
+        $routes->delete('delete/(:num)', 'MenuController::delete/$1');
+        $routes->get('toggle-status/(:num)', 'MenuController::toggleStatus/$1');
+
+    });
     // // Content Management
     // $routes->group('content', function($routes) {
     //     $routes->get('pages', 'PageController::index');
