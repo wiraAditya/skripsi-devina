@@ -1,37 +1,7 @@
 <?php
-    $cartItems = [
-      '1' => [
-        'id' => 1,
-        'name' => 'Nasi Goreng Spesial',
-        'price' => 25000,
-        'image' => 'https://images.unsplash.com/photo-1631898034271-9a677e5727d2',
-        'quantity' => 2,
-        'notes' => 'Pedas level 2'
-      ],
-      '2' => [
-        'id' => 2,
-        'name' => 'Es Teh Manis',
-        'price' => 8000,
-        'image' => '',
-        'quantity' => 1,
-        'notes' => 'Kurang manis'
-      ],
-      '3' => [
-        'id' => 3,
-        'name' => 'Mie Ayam',
-        'price' => 20000,
-        'image' => 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841',
-        'quantity' => 1,
-        'notes' => ''
-      ]
-    ];
     
-    $subtotal = 0;
-    foreach ($cartItems as $item) {
-      $subtotal += $item['price'] * $item['quantity'];
-    }
-    $tax = $subtotal * 0.1; // 10% PPN
-    $total = $subtotal + $tax;
+    $tax = $subTotal * 0.1; // 10% PPN
+    $total = $subTotal + $tax;
 ?>
 
 <?= $this->extend('layouts/clear') ?>
@@ -64,10 +34,10 @@
                   <!-- Product Image & Name -->
                   <div class="md:col-span-5 flex items-center space-x-4">
                     <button class="text-red-500 hover:text-red-700">
-                      <i class="fas fa-times"></i>
+                      <i class="fas fa-trash"></i>
                     </button>
                     <?php if ($item['image']): ?>
-                      <img src="<?= $item['image'] ?>" alt="<?= $item['name'] ?>" class="w-16 h-16 object-cover rounded">
+                      <img src="/uploads/menu/<?= $item['image'] ?>" alt="<?= $item['name'] ?>" class="w-16 h-16 object-cover rounded">
                     <?php else: ?>
                       <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
                         <i class="fas fa-utensils text-gray-400"></i>
@@ -117,10 +87,10 @@
         <div class="bg-white rounded-lg shadow p-6 sticky top-4">
           <h2 class="text-xl font-bold text-gray-800 mb-4">Ringkasan Pesanan</h2>
           
-          <div class="space-y-4">
+          <div class="space-y-4 flex flex-col">
             <div class="flex justify-between">
               <span class="text-gray-600">Subtotal</span>
-              <span class="font-medium">Rp <?= number_format($subtotal, 0, ',', '.') ?></span>
+              <span class="font-medium">Rp <?= number_format($subTotal, 0, ',', '.') ?></span>
             </div>
             
             <div class="flex justify-between">
@@ -135,9 +105,9 @@
               </div>
             </div>
             
-            <button class="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-medium transition-colors mt-6">
+            <a href="/payment" id="pay-button" class="w-full text-center bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-medium transition-colors mt-6">
               Lanjut ke Pembayaran
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -146,3 +116,4 @@
 </div>
 
 <?= $this->endSection() ?>
+

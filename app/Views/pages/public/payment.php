@@ -1,8 +1,14 @@
+<?php
+    $tax = $subTotal * 0.1; // 10% PPN
+    $total = $subTotal + $tax;
+?>
+
 <?= $this->extend('layouts/clear') ?>
+
 
 <?= $this->section('content') ?>
 <div class="min-h-screen bg-gray-50 py-8">
-  <div class="container mx-auto px-4 max-w-4xl">
+  <div class="container mx-auto px-4 max-w-6xl">
     <!-- Checkout Progress Component -->
     <?= view('components/home/checkout_steps') ?>
 
@@ -46,31 +52,13 @@
               </label>
             </div>
             
-            <!-- Payment Gateway Selection -->
-            <div id="gatewayOptions" class="hidden bg-gray-50 p-4 rounded-lg mt-4">
-              <h4 class="font-medium text-gray-700 mb-3">Pilih Metode Pembayaran:</h4>
-              <div class="grid grid-cols-1 gap-3">
-                <button type="button" class="gateway-method flex items-center p-3 border border-gray-300 rounded-lg hover:border-amber-500">
-                  <img src="https://logo.clearbit.com/midtrans.com" alt="Midtrans" class="h-8 w-8 object-contain mr-3">
-                  <span class="font-medium">Midtrans</span>
-                </button>
-                <button type="button" class="gateway-method flex items-center p-3 border border-gray-300 rounded-lg hover:border-amber-500">
-                  <img src="https://logo.clearbit.com/gopay.com" alt="Gopay" class="h-8 w-8 object-contain mr-3">
-                  <span class="font-medium">Gopay</span>
-                </button>
-                <button type="button" class="gateway-method flex items-center p-3 border border-gray-300 rounded-lg hover:border-amber-500">
-                  <img src="https://logo.clearbit.com/ovo.id" alt="OVO" class="h-8 w-8 object-contain mr-3">
-                  <span class="font-medium">OVO</span>
-                </button>
-                <button type="button" class="gateway-method flex items-center p-3 border border-gray-300 rounded-lg hover:border-amber-500">
-                  <img src="https://logo.clearbit.com/dana.id" alt="DANA" class="h-8 w-8 object-contain mr-3">
-                  <span class="font-medium">DANA</span>
-                </button>
-              </div>
-            </div>
           </div>
           
           <!-- Order Notes -->
+          <div class="mt-8">
+            <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
+            <textarea id="notes" name="notes" rows="1" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-amber-500 focus:border-amber-500"></textarea>
+          </div>
           <div class="mt-8">
             <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Catatan Pesanan (Opsional)</label>
             <textarea id="notes" name="notes" rows="3" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-amber-500 focus:border-amber-500"></textarea>
@@ -83,31 +71,33 @@
         <div class="bg-white rounded-lg shadow p-6 sticky top-4">
           <h2 class="text-xl font-bold text-gray-800 mb-4">Ringkasan Pesanan</h2>
           
-          <div class="space-y-4 mb-6">
+          <div class="space-y-4 mb-6 text-sm">
+          <?php foreach ($cartItems as $id => $item): ?>
             <div class="flex justify-between">
-              <span class="text-gray-600">Nasi Goreng Spesial × 2</span>
-              <span class="font-medium">Rp 50.000</span>
+              <div class="flex flex-col">
+                <span class="text-gray-600"><?=$item['name']?> x<?=$item['quantity']?></span>
+                <span class=" text-gray-400 text-xs italic">catatan: <?=$item['notes']?></span>
+              </div>
+              <span class="font-medium">Rp <?= number_format($item['price'], 0, ',', '.') ?></span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-gray-600">Es Teh Manis × 1</span>
-              <span class="font-medium">Rp 8.000</span>
-            </div>
+          <?php endforeach; ?>
+
           </div>
           
-          <div class="space-y-4 border-t border-gray-200 pt-4">
+          <div class="space-y-4 border-t border-gray-200 pt-4 text-sm">
             <div class="flex justify-between">
               <span class="text-gray-600">Subtotal</span>
-              <span class="font-medium">Rp 58.000</span>
+              <span class="font-medium">Rp <?= number_format($subTotal, 0, ',', '.') ?></span>
             </div>
             
             <div class="flex justify-between">
               <span class="text-gray-600">PPN (10%)</span>
-              <span class="font-medium">Rp 5.800</span>
+              <span class="font-medium">Rp <?= number_format($tax, 0, ',', '.') ?></span>
             </div>
             
             <div class="flex justify-between font-bold text-lg mt-4">
               <span>Total</span>
-              <span>Rp 63.800</span>
+              <span>Rp <?= number_format($total, 0, ',', '.') ?></span>
             </div>
             
             <button id="submitPayment" type="button" class="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-medium transition-colors mt-6">
@@ -119,46 +109,38 @@
     </div>
   </div>
 </div>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key=""></script>
 
 <script>
+  
 document.addEventListener('DOMContentLoaded', function() {
-  // Toggle payment gateway options
-  const gatewayRadio = document.getElementById('gateway');
-  const gatewayOptions = document.getElementById('gatewayOptions');
-  const radios = document.querySelectorAll('input[name="payment_method"]');
-  
-  radios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      console.log('You selected:', radio.value);
-      if(radio.value === "gateway") {
-        gatewayOptions.classList.remove('hidden');
-      } else {
-        gatewayOptions.classList.add('hidden');
-      }
-    });
-  });
-  
-  // Handle payment method selection
-  document.querySelectorAll('.gateway-method').forEach(button => {
-    button.addEventListener('click', function() {
-      document.querySelectorAll('.gateway-method').forEach(btn => {
-        btn.classList.remove('border-amber-500', 'bg-amber-50');
-      });
-      this.classList.add('border-amber-500', 'bg-amber-50');
-    });
-  });
+ 
   
   // Submit payment
   document.getElementById('submitPayment').addEventListener('click', function() {
     const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
     
     if (paymentMethod === 'gateway') {
-      const selectedGateway = document.querySelector('.gateway-method.border-amber-500');
-      if (!selectedGateway) {
-        alert('Silakan pilih metode pembayaran digital');
-        return;
-      }
-      alert('Anda akan diarahkan ke halaman pembayaran digital');
+      fetch('/cart/payment')
+        .then(response => response.json())
+        .then(data => {
+            snap.pay(data.token, {
+                onSuccess: function (result) {
+                    // do insert DB
+                    alert('Success!');
+                    console.log(result);
+                },
+                onPending: function (result) {
+                    alert('Pending!');
+                    console.log(result);
+                },
+                onError: function (result) {
+                    alert('Error!');
+                    console.log(result);
+                }
+            });
+        });
+      
     } else {
       alert('Pesanan Anda telah diterima. Silakan siapkan pembayaran saat pesanan datang.');
     }

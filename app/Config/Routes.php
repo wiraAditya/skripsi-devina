@@ -6,9 +6,20 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('menu', "Home::menu");
-$routes->get('cart', "Home::cart");
-$routes->get('payment', "Home::payment");
+$routes->get('menu', "HomeMenuController::index");
+
+$routes->group('payment', function($routes) {
+    $routes->get('/', 'PaymentController::index');
+    $routes->get('token', 'PaymentController::token');
+});
+$routes->group('cart', function($routes) {
+    $routes->get('/', 'CartController::view');
+    $routes->post('add', 'CartController::add');
+    $routes->get('update', 'CartController::update');
+    $routes->get('remove/(:num)', 'CartController::remove/$1');
+    $routes->post('clear', 'CartController::clear');
+    $routes->get('payment', 'PaymentController::token');
+});
 
 $routes->group('admin',  function($routes) {
     // Admin Dashboard
