@@ -56,12 +56,8 @@
           
           <!-- Order Notes -->
           <div class="mt-8">
-            <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
-            <textarea id="notes" name="notes" rows="1" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-amber-500 focus:border-amber-500"></textarea>
-          </div>
-          <div class="mt-8">
             <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Catatan Pesanan (Opsional)</label>
-            <textarea id="notes" name="notes" rows="3" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-amber-500 focus:border-amber-500"></textarea>
+            <textarea id="notes" id="notes" name="notes" rows="3" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-amber-500 focus:border-amber-500"></textarea>
           </div>
         </div>
       </div>
@@ -142,7 +138,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       
     } else {
-      alert('Pesanan Anda telah diterima. Silakan siapkan pembayaran saat pesanan datang.');
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = `payment/process/1`;
+      const formData = new FormData();
+      formData.append('notes', document.getElementById("notes").value);
+      for (let [key, value] of formData.entries()) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
+      }
+
+      // Append the form to the body
+      document.body.appendChild(form);
+
+      // Submit the form
+      form.submit();
     }
   });
 });

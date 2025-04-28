@@ -32,7 +32,18 @@ class CartController extends BaseController
 
     public function update()
     {
-        // Similar to add but for updates
+        $index = $this->request->getPost('itemIndex');
+        $itemId = $this->request->getPost('itemId');
+        $name = $this->request->getPost('name');
+        $price = $this->request->getPost('price');
+        $quantity = $this->request->getPost('quantity');
+        $image = $this->request->getPost('image');
+        $notes = $this->request->getPost('notes');
+    
+        // Update cart item
+        updateCartItem($index, $itemId, $name, $price, $quantity, $image, $notes);
+    
+        return redirect()->to('/cart')->with('success', 'Item updated successfully!');
     }
 
     public function remove($index)

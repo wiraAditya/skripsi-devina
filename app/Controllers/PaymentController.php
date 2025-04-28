@@ -2,10 +2,20 @@
 
 namespace App\Controllers;
 
-use App\Libraries\MidtransService;
+use App\Models\OrderModel;
+use App\Models\OrderDetailModel;
 
 class PaymentController extends BaseController
 {
+    protected $orderModel;
+    protected $orderDetailModel;
+
+    public function __construct()
+    {
+        $this->orderModel = new OrderModel();
+        $this->orderDetailModel = new OrderDetailModel();
+    }
+
     public function index()
     {
         $data['cartItems'] = getCartItems();
@@ -15,25 +25,72 @@ class PaymentController extends BaseController
         return view('pages/public/payment', $data);
     }
 
-    public function token()
+    public function processPayment($kind)
     {
-        $midtrans = new MidtransService();
+        // Validate cart exists
+        $cartItems = getCartItems();
+        if (empty($cartItems)) {
+            return redirect()->back()->with('error', 'Keranjang belanja kosong');
+        }
 
-        $params = [
-            'transaction_details' => [
-                'order_id' => rand(),
-                'gross_amount' => 100000,
-            ],
-            'customer_details' => [
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-                'email' => 'john.doe@example.com',
-                'phone' => '08123456789',
-            ]
+        // Calculate totals
+        $subTotal = array_sum(array_map(function($item) {
+            return $item['price'] * $item['quantity'];
+        }, $cartItems));
+
+        // Calculate tax (example: 10%)
+        $tax = $subTotal * 0.1;
+        $total = $subTotal + $tax;
+        // Prepare order data
+        $orderData = [
+            'tanggal' => date('Y-m-d H:i:s'),
+            'total' => $total,
+            'catatan' => $this->request->getPost('notes') ?? '',
+            'status' => 'paid', // or 'pending' if you need kitchen confirmation
+            'payment_method' => $kind, // 1 for cash
+            'transaction_code' => 'TR-' . date('YmdHis'),
+            'tax' => $tax
         ];
 
-        $snapToken = $midtrans->createSnapToken($params);
+        // Start database transaction
+        $db = db_connect();
+        $db->transStart();
 
-        return $this->response->setJSON(['token' => $snapToken]);
+        try {
+            // Insert order
+            $orderId = $this->orderModel->insert($orderData);
+
+            // Insert order details
+            foreach ($cartItems as $item) {
+                $this->orderDetailModel->insert([
+                    'order_id' => $orderId,
+                    'menu_id' => $item['id'],
+                    'qty' => $item['quantity'],
+                    'harga' => $item['price'],
+                    'catatan' => $item['notes'] ?? ''
+                ]);
+            }
+
+            // Commit transaction
+            $db->transComplete();
+
+            // Clear cart
+            clearCart();
+
+            // Redirect to success page
+            return redirect()->to('/payment/success/' . $orderId)->with('success', 'Pembayaran berhasil diproses');
+
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function orderSuccess($orderId)
+    {
+        $data['order'] = $this->orderModel->find($orderId);
+        $data['orderDetails'] = $this->orderModel->getOrderByIdWithDetails($orderId);
+
+        return view('pages/public/order_success', $data);
     }
 }

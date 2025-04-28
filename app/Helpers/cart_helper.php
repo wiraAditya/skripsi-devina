@@ -57,3 +57,24 @@ function removeFromCart($index) {
 function clearCart() {
     session()->remove('cart');
 }
+
+function updateCartItem($index, $id, $name, $price, $quantity, $image, $notes)
+{
+    $cart = session()->get('cart') ?? [];
+    
+    if (isset($cart[$index])) {
+        $cart[$index] = [
+            'id' => $id,
+            'name' => $name,
+            'price' => $price,
+            'quantity' => $quantity,
+            'image' => $image,
+            'notes' => $notes
+        ];
+        
+        session()->set('cart', $cart);
+        return true;
+    }
+    
+    return false;
+}

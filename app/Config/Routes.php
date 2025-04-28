@@ -11,11 +11,13 @@ $routes->get('menu', "HomeMenuController::index");
 $routes->group('payment', function($routes) {
     $routes->get('/', 'PaymentController::index');
     $routes->get('token', 'PaymentController::token');
+    $routes->post('process/(:num)', 'PaymentController::processPayment/$1');
+    $routes->get('success/(:num)', 'PaymentController::orderSuccess/$1');
 });
 $routes->group('cart', function($routes) {
     $routes->get('/', 'CartController::view');
     $routes->post('add', 'CartController::add');
-    $routes->get('update', 'CartController::update');
+    $routes->post('update', 'CartController::update');
     $routes->get('remove/(:num)', 'CartController::remove/$1');
     $routes->post('clear', 'CartController::clear');
     $routes->get('payment', 'PaymentController::token');
