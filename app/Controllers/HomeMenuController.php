@@ -36,13 +36,15 @@ class HomeMenuController extends BaseController
         foreach ($categories as $category) {
             $pils[] = $category['kategori'];
         }
+        $cartData = getCartItems() ?? [];
+
 
         return view('pages/public/menu', [
             'title' => 'Menu Kami',
             'menus' => $menus,
             'pils' => $pils,
             'selectedPils' => $selectedFilter,
-            'baseUrl' => '/menu'
+            'cart' => count($cartData)
         ]);
     }
 }

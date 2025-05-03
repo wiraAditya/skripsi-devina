@@ -105,7 +105,7 @@
     </div>
   </div>
 </div>
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key=""></script>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-F_W8rGGPgKe1RB8d"></script>
 
 <script>
   
@@ -123,24 +123,27 @@ document.addEventListener('DOMContentLoaded', function() {
             snap.pay(data.token, {
                 onSuccess: function (result) {
                     // do insert DB
-                    alert('Success!');
+                    submitData('payment_digital');
                     console.log(result);
                 },
                 onPending: function (result) {
-                    alert('Pending!');
                     console.log(result);
                 },
                 onError: function (result) {
-                    alert('Error!');
                     console.log(result);
                 }
             });
         });
       
     } else {
-      const form = document.createElement('form');
+      submitData('payment_cash');
+    }
+  });
+  function submitData(kind) {
+    console.log('kind', kind);
+    const form = document.createElement('form');
       form.method = 'POST';
-      form.action = `payment/process/1`;
+      form.action = `payment/process/${kind}`;
       const formData = new FormData();
       formData.append('notes', document.getElementById("notes").value);
       for (let [key, value] of formData.entries()) {
@@ -156,8 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Submit the form
       form.submit();
-    }
-  });
+  }
 });
 </script>
 

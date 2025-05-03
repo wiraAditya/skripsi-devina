@@ -22,10 +22,10 @@ class CartController extends BaseController
 
     public function view()
     {
-        $data['cartItems'] = getCartItems();
-        $data['subTotal'] = array_sum(array_map(function($item) {
+        $data['cartItems'] = getCartItems() ?? [];
+        $data['subTotal'] = isset($data['cartItems']) && count( $data['cartItems']) ? array_sum(array_map(function($item) {
             return $item['price'] * $item['quantity'];
-        }, $data['cartItems']));
+        }, $data['cartItems'])) : 0;
         return view('pages/public/cart', $data);
         
     }

@@ -3,18 +3,18 @@
  * Reusable Delete Modal Component
  * 
  * @param string $modalId - ID for the modal (default: 'deleteModal')
- * @param string $title - Modal title (default: 'Hapus Data')
+ * @param string $modalTitle - Modal modalTitle (default: 'Hapus Data')
  * @param string $message - Confirmation message (default: 'Apakah Anda yakin ingin menghapus data ini?')
  * @param string $formId - ID for the form (default: 'deleteForm')
  */
 
 $modalId = isset($modalId) ? $modalId : 'deleteModal';
-$title = isset($title) ? $title : 'Hapus Data';
+$modalTitle = isset($modalTitle) ? $modalTitle : 'Hapus Data';
 $message = isset($message) ? $message : 'Apakah Anda yakin ingin menghapus data ini? Data yang sudah dihapus tidak dapat dikembalikan.';
 $formId = isset($formId) ? $formId : 'deleteForm';
 ?>
 
-<div id="<?= $modalId ?>" class="fixed z-50 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="<?= $modalId ?>" class="fixed z-50 inset-0 overflow-y-auto hidden" aria-labelledby="modal-modalTitle" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!-- Background overlay -->
         <div class="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
@@ -27,8 +27,8 @@ $formId = isset($formId) ? $formId : 'deleteForm';
                         <i class="fas fa-exclamation text-red-600"></i>
                     </div>
                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                            <?= $title ?>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-modalTitle">
+                            <?= $modalTitle ?>
                         </h3>
                         <div class="mt-2">
                             <p class="text-sm text-gray-500">

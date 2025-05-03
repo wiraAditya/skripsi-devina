@@ -20,8 +20,8 @@ class UserController extends BaseController
         }
 
         return view('pages/admin/user/user', [
-            'title' => 'Dashboard',
-            'activeRoute' => 'dashboard',
+            'title' => 'User',
+            'activeRoute' => 'users',
             'users' => $users,
             'pager' => $pager,
         ]);
@@ -55,7 +55,7 @@ class UserController extends BaseController
         $data = [
             'nama' => $this->request->getPost('nama'),
             'email' => $this->request->getPost('email'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'password' => $this->request->getPost('password'),
             'role' => $this->request->getPost('role'),
             'status' => 1,
         ];

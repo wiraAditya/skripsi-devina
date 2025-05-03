@@ -91,7 +91,7 @@
     
     
     <?= view('components/admin/modal_delete', [
-        'title' => 'Hapus User',
+        'modalTitle' => 'Hapus User',
         'message' => 'Apakah Anda yakin ingin menghapus user ini? Data yang sudah dihapus tidak dapat dikembalikan.'
     ]) ?>
 

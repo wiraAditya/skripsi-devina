@@ -111,6 +111,10 @@
             <?php endforeach; ?>
           </div>
         </div>
+        <p class="text-sm italic text-center mt-2 text-gray-400">
+          <?= count($cartItems) ? "" : "Keranjang belanja anda masih kosong"?>
+        </p>
+        
       </div>
       
       <!-- Order Summary -->

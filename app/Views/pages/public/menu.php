@@ -9,10 +9,10 @@
         <h1 class="text-xl font-bold"><?= $title ?></h1>
       </div>
       <div class="flex items-center">
-        <button class="bg-yellow-400 text-black px-4 py-2 rounded-full font-bold flex items-center">
+        <a href="/cart" class="cursor-pointer bg-yellow-400 text-black px-4 py-2 rounded-full font-bold flex items-center">
           <i class="fas fa-shopping-cart mr-2"></i>
-          <span class="cart-count">3</span>
-        </button>
+          <span class="cart-count"><?=$cart?></span>
+        </a>
       </div>
     </div>
   </header>

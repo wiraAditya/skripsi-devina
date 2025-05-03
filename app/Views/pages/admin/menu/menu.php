@@ -95,7 +95,7 @@
     </div>
     
     <?= view('components/admin/modal_delete', [
-        'title' => 'Hapus Menu',
+        'modalTitle' => 'Hapus Menu',
         'message' => 'Apakah Anda yakin ingin menghapus menu ini? Data yang sudah dihapus tidak dapat dikembalikan.'
     ]) ?>
 

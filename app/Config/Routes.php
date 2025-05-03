@@ -7,12 +7,19 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('menu', "HomeMenuController::index");
+$routes->get('logout', "LoginController::logout");
+$routes->group('login', function($routes) {
+    $routes->get('/', "LoginController::index");
+    $routes->post('/', "LoginController::login");
+
+});
 
 $routes->group('payment', function($routes) {
     $routes->get('/', 'PaymentController::index');
     $routes->get('token', 'PaymentController::token');
-    $routes->post('process/(:num)', 'PaymentController::processPayment/$1');
+    $routes->post('process/(:any)', 'PaymentController::processPayment/$1');
     $routes->get('success/(:num)', 'PaymentController::orderSuccess/$1');
+    $routes->get('cetak-struk/(:num)', 'PaymentController::struk/$1');
 });
 $routes->group('cart', function($routes) {
     $routes->get('/', 'CartController::view');
@@ -23,7 +30,7 @@ $routes->group('cart', function($routes) {
     $routes->get('payment', 'PaymentController::token');
 });
 
-$routes->group('admin',  function($routes) {
+$routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
     // Admin Dashboard
     $routes->get('/', 'AdminController::index');
     
@@ -44,6 +51,16 @@ $routes->group('admin',  function($routes) {
         $routes->post('update/(:num)', 'KategoriController::update/$1');
         $routes->delete('delete/(:num)', 'KategoriController::delete/$1');
     });
+    $routes->group('order', function($routes) {
+        $routes->get('/', 'OrderController::index');
+        $routes->get('detail/(:num)', 'OrderController::detail/$1');
+        $routes->get('confirm/(:num)', 'OrderController::confirm/$1');
+        $routes->get('done/(:num)', 'OrderController::done/$1');
+        $routes->get('proccess/(:num)', 'OrderController::proccess/$1');
+        $routes->delete('cancel/(:num)', 'OrderController::cancel/$1');
+        $routes->get('print-receipt/(:num)', 'OrderController::printReceipt/$1');
+    });
+    
     $routes->group('menu', function($routes) {
         $routes->get('/', 'MenuController::index');
         $routes->get('create', 'MenuController::create');
@@ -54,21 +71,9 @@ $routes->group('admin',  function($routes) {
         $routes->get('toggle-status/(:num)', 'MenuController::toggleStatus/$1');
 
     });
-    // // Content Management
-    // $routes->group('content', function($routes) {
-    //     $routes->get('pages', 'PageController::index');
-    //     $routes->get('posts', 'PostController::index');
-    //     // Add more content routes as needed
-    // });
-    
-    // // Settings
-    // $routes->group('settings', function($routes) {
-    //     $routes->get('/', 'SettingsController::index');
-    //     $routes->post('update', 'SettingsController::update');
-    // });
-    
-    // // Any other admin-specific routes
-    // $routes->get('profile', 'AdminController::profile');
-    // $routes->post('profile/update', 'AdminController::updateProfile');
 });
 
+// API routes
+$routes->group('api', ['namespace' => 'App\Controllers'], function($routes) {
+    $routes->get('transactions', 'ApiTransactionController::index');
+});

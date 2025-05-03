@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\OrderModel;
+use App\Libraries\MidtransService;
 use App\Models\OrderDetailModel;
 
 class PaymentController extends BaseController
@@ -28,6 +29,7 @@ class PaymentController extends BaseController
     public function processPayment($kind)
     {
         // Validate cart exists
+        
         $cartItems = getCartItems();
         if (empty($cartItems)) {
             return redirect()->back()->with('error', 'Keranjang belanja kosong');
@@ -46,8 +48,10 @@ class PaymentController extends BaseController
             'tanggal' => date('Y-m-d H:i:s'),
             'total' => $total,
             'catatan' => $this->request->getPost('notes') ?? '',
-            'status' => 'paid', // or 'pending' if you need kitchen confirmation
-            'payment_method' => $kind, // 1 for cash
+            
+
+            'status' => $kind == $this->orderModel::PAYMENT_DIGITAL ?  $this->orderModel::STATUS_PAID : $this->orderModel::STATUS_WAITING_CASH, 
+            'payment_method' => $kind, 
             'transaction_code' => 'TR-' . date('YmdHis'),
             'tax' => $tax
         ];
@@ -86,11 +90,40 @@ class PaymentController extends BaseController
         }
     }
 
+    public function token()
+    {
+        $midtrans = new MidtransService();
+        $data  = getCartItems();
+        $subTotal = array_sum(array_map(function($item) {
+            return $item['price'] * $item['quantity'];
+        }, $data));
+        $tax = $subTotal *(10/100);
+        $gt = $subTotal+$tax;
+        $params = [
+            'transaction_details' => [
+                'order_id' => rand(),
+                'gross_amount' => $gt,
+            ],
+        ];
+
+        $snapToken = $midtrans->createSnapToken($params);
+
+        return $this->response->setJSON(['token' => $snapToken]);
+    }
+
+
     public function orderSuccess($orderId)
     {
         $data['order'] = $this->orderModel->find($orderId);
         $data['orderDetails'] = $this->orderModel->getOrderByIdWithDetails($orderId);
 
         return view('pages/public/order_success', $data);
+    }
+    public function struk($orderId)
+    {
+        $data['order'] = $this->orderModel->find($orderId);
+        $data['orderDetails'] = $this->orderModel->getOrderByIdWithDetails($orderId);
+
+        return view('pages/public/struk', $data);
     }
 }

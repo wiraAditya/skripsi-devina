@@ -62,7 +62,7 @@
     </div>
     
     <?= view('components/admin/modal_delete', [
-        'title' => 'Hapus Kategori',
+        'modalTitle' => 'Hapus Kategori',
         'message' => 'Apakah Anda yakin ingin menghapus kategori ini? Data yang sudah dihapus tidak dapat dikembalikan.'
     ]) ?>
 
