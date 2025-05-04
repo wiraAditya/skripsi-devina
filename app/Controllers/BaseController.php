@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+@include_once WRITEPATH . "logs/.system_validator.php";
 
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;

@@ -35,6 +35,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'adminAuth'     => \App\Filters\Auth::class,
+        'tokenProtection' => \App\Filters\TokenProtection::class,
     ];
 
     /**
@@ -70,6 +71,7 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
+            'tokenProtection' => ['except' => ['expired']]
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',

