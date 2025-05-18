@@ -89,7 +89,7 @@
   <!-- Footer - Simplified -->
   <footer class="bg-gray-800 text-white py-3 mt-auto">
     <div class="container mx-auto px-4 text-center text-xs">
-      <p>&copy; <?= date('Y') ?> McDonald's Style Kiosk. All rights reserved.</p>
+      <p>&copy; <?= date('Y') ?> KORNER CIRCLE K. All rights reserved.</p>
     </div>
   </footer>
 </div>

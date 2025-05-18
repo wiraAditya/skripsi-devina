@@ -5,7 +5,7 @@
   <!-- Header -->
   <header class="bg-amber-600 text-white shadow-md">
     <div class="container mx-auto px-4 py-4 md:py-6">
-      <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-center">Selamat Datang di [Nama Usaha Anda]!</h1>
+      <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-center">Selamat Datang di KORNER CIRCLE K</h1>
     </div>
   </header>
 
@@ -40,7 +40,7 @@
   <!-- Footer -->
   <footer class="bg-gray-800 text-white py-4 md:py-6 mt-auto">
     <div class="container mx-auto px-4 text-center">
-      <p class="text-xs md:text-sm">&copy; 2023 [Nama Usaha Anda]. All rights reserved.</p>
+      <p class="text-xs md:text-sm">&copy; 2025 KORNER CIRCLE K. All rights reserved.</p>
     </div>
   </footer>
 </div>

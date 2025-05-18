@@ -3,9 +3,7 @@
 
 <div class="w-[300px] mx-auto p-4 text-sm text-gray-800 font-mono" style="font-size: 12px;">
   <div class="text-center mb-4">
-    <h1 class="font-bold text-lg">Nama Toko</h1>
-    <p class="text-xs">Alamat Toko</p>
-    <p class="text-xs">Telepon: 08xxxxxx</p>
+    <h1 class="font-bold text-lg">KORNER CIRCLE K</h1>
     <hr class="my-2 border-gray-400">
   </div>
 
