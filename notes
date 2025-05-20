@@ -14,3 +14,10 @@ oke kurang lebih detail sistemnya bakal kaya gini
 •⁠  ⁠4 user role (admin, kasir, barista, dan public)
 limitasi: 
 •⁠  ⁠proses cetak struk hanya menampilkan preview cetak saja, tidak sampai integrasi ke printer thermal
+
+new
+
+- check date on order not using time now
+- re order the order for admin and kasir to desc
+- payment status in receipt, if cash add details to make customer to go to cashier.
+- remove cetak receipt from cashier

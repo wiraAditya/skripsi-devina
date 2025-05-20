@@ -9,8 +9,10 @@ class OrderController extends BaseController
     {
         $orderModel = new OrderModel();
         $filterStatus = [];
+        $sortOrder = 'DESC'; 
         if(session()->get('user_role') == 2) {
             $filterStatus = ['status_paid', "status_process"];
+            $sortOrder = 'ASC'; 
         } else if(session()->get('user_role') == 3) {
             $filterStatus = ["status_waiting_cash"];
         }else {
@@ -20,7 +22,7 @@ class OrderController extends BaseController
                                 "status_done",
                                 "status_canceled",];
         }
-        $orderModel->whereIn("status", $filterStatus);
+        $orderModel->whereIn('status', $filterStatus)->orderBy('id', $sortOrder);
         $perPage = 10;
 
         $search = $this->request->getGet('search');

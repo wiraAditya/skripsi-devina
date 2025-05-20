@@ -77,10 +77,10 @@
         </div>
     <?php endif;?>
 
-     <div class="mt-6">
+     <!-- <div class="mt-6">
         <a href="/admin/order/print-receipt/<?=$order['id']?>" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded transition duration-200">
             Cetak Struk
         </a>
-    </div>
+    </div> -->
 </div>
 <?= $this->endSection() ?>

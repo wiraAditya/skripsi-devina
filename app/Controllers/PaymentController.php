@@ -44,12 +44,11 @@ class PaymentController extends BaseController
         $tax = $subTotal * 0.1;
         $total = $subTotal + $tax;
         // Prepare order data
+        date_default_timezone_set('Asia/singapore');
         $orderData = [
             'tanggal' => date('Y-m-d H:i:s'),
             'total' => $total,
             'catatan' => $this->request->getPost('notes') ?? '',
-            
-
             'status' => $kind == $this->orderModel::PAYMENT_DIGITAL ?  $this->orderModel::STATUS_PAID : $this->orderModel::STATUS_WAITING_CASH, 
             'payment_method' => $kind, 
             'transaction_code' => 'TR-' . date('YmdHis'),
@@ -121,8 +120,15 @@ class PaymentController extends BaseController
     }
     public function struk($orderId)
     {
-        $data['order'] = $this->orderModel->find($orderId);
-        $data['orderDetails'] = $this->orderModel->getOrderByIdWithDetails($orderId);
+        $order = $this->orderModel->find($orderId);
+        $orderDetails = $this->orderModel->getOrderByIdWithDetails($orderId);
+
+        // Add payment method text and status text
+        $order['payment_method_text'] = $this->orderModel->getPaymentMethodText($order['payment_method']);
+        $order['status_text'] = $this->orderModel->getOrderStatus($order['status']);
+
+        $data['order'] = $order;
+        $data['orderDetails'] = $orderDetails;
 
         return view('pages/public/struk', $data);
     }
