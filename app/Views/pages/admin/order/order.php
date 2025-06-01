@@ -110,7 +110,7 @@
                                 </a>
                                 <?php if($order['status'] == 'status_waiting_cash'):
                                 ?>
-                                <button onclick="showModal('deleteModal', '/admin/order/cancel/<?= $order['id'] ?>')" class="text-red-600 hover:text-red-900" title="Hapus">
+                                <button onclick="showModalWithOrder('deleteModal', '/admin/order/cancel/<?= $order['id'] ?>', '<?= $order['transaction_code'] ?>')" class="text-red-600 hover:text-red-900" title="Hapus">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <?php endif;?>
@@ -173,4 +173,17 @@
         'modalTitle' => 'Batalkan order',
         'message' => 'Apakah Anda yakin ingin membatalkan order ini?'
     ]) ?>
+    <script>
+        function showModalWithOrder(modalId, formAction, orderCode) {
+            // First show the modal with the form action
+            showModal(modalId, formAction);
+            
+            // Then update the message to include the order code
+            const modal = document.getElementById(modalId);
+            const messageElement = document.getElementById('deleteModalMessage');
+            if (messageElement) {
+                messageElement.innerHTML = `Apakah Anda yakin ingin membatalkan order <b>${orderCode}</b>? `;
+            }
+        }
+    </script>
 <?= $this->endSection() ?>

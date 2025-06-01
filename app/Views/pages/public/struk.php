@@ -60,7 +60,7 @@
   <hr class="my-2 border-gray-400">
 
   <div class="text-center mt-4">
-    <p><?=$order['payment_method'] === 'payment_cash' ? 'Silakan menuju kasir untuk melanjutkan proses pembayaran' : 'Selakan menunggu makanan anda untuk siap disajikan'?></p>
+    <p class="<?=$order['payment_method'] ? 'text-2xl' : 'text-base'?>"><?=$order['payment_method'] === 'payment_cash' ? 'Silakan menuju kasir untuk melanjutkan proses pembayaran' : 'Selakan menunggu makanan anda untuk siap disajikan'?></p>
     <p>Terima Kasih</p>
     <p>Sudah Berbelanja</p>
   </div>

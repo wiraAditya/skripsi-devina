@@ -31,7 +31,7 @@ $formId = isset($formId) ? $formId : 'deleteForm';
                             <?= $modalTitle ?>
                         </h3>
                         <div class="mt-2">
-                            <p class="text-sm text-gray-500">
+                            <p class="text-sm text-gray-500" id="deleteModalMessage">
                                 <?= $message ?>
                             </p>
                         </div>

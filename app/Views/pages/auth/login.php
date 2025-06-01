@@ -3,6 +3,8 @@
 <?= $this->section('content') ?>
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="bg-white p-8 rounded shadow-md w-96">
+        <img class="mx-auto rounded-full mt-2 h-16 w-16 " src="/uploads/logo.png" alt="logo">
+
         <h1 class="text-2xl font-bold mb-6 text-center">Login</h1>
         <?php if (session()->getFlashdata('error')): ?>
             <div class="bg-red-100 text-red-700 p-2 rounded mb-4">

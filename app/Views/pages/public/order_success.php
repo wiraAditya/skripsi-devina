@@ -16,11 +16,11 @@
     </p>
   <?php endif; ?>
 
-  <div class="flex flex-col sm:flex-row gap-4">
-    <a href="<?= base_url('payment/cetak-struk/' . esc($order['id'])) ?>" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-6 rounded-lg" target="_blank">
+  <div class="flex flex-col gap-4">
+    <a href="<?= base_url('payment/cetak-struk/' . esc($order['id'])) ?>" class="text-2xl bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded-lg" target="_blank">
       Cetak Struk
     </a>
-    <a href="<?= base_url('/') ?>" class="transparent border border-amber-600 hover:bg-amber-700 text-amber-600 hover:text-white font-semibold py-2 px-6 rounded-lg">
+    <a href="<?= base_url('/') ?>" class="text-2xl transparent border border-amber-600 hover:bg-amber-700 text-amber-600 hover:text-white font-semibold py-3 px-6 rounded-lg">
       Kembali ke Beranda
     </a>
 

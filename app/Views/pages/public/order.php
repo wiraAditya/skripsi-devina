@@ -6,6 +6,7 @@
   <header class="bg-amber-600 text-white shadow-md">
     <div class="container mx-auto px-4 py-4 md:py-6">
       <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-center">Selamat Datang di KORNER CIRCLE K</h1>
+      <img class="mx-auto rounded-full mt-2 h-16 w-16 " src="/uploads/logo.png" alt="logo">
     </div>
   </header>
 

@@ -6,6 +6,8 @@
   <header class="bg-amber-600 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center">
+        <img class="mx-auto rounded-full mr-2 h-16 w-16" src="/uploads/logo.png" alt="logo">
+
         <h1 class="text-xl font-bold"><?= $title ?></h1>
       </div>
       <div class="flex items-center">
