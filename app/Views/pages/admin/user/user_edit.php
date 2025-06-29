@@ -47,8 +47,13 @@
                 <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
                 <select name="role" id="role" 
                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <option value="2" <?= old('role', $user['role']) == 2 ? 'selected' : '' ?>>Barista</option>
-                    <option value="3" <?= old('role', $user['role']) == 3 ? 'selected' : '' ?>>Kasir</option>
+                    <?php if( $user['role'] == 1):?>
+                        <option value="1" <?= old('role', $user['role']) == 1 ? 'selected' : '' ?>>Admin</option>
+                    <?php else: ?>
+                        <option value="2" <?= old('role', $user['role']) == 2 ? 'selected' : '' ?>>Barista</option>
+                    
+                        <option value="3" <?= old('role', $user['role']) == 3 ? 'selected' : '' ?>>Kasir</option>
+                    <?php endif?>
                 </select>
             </div>
             

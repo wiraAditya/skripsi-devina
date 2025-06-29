@@ -65,9 +65,11 @@
                                 <a href="/admin/users/edit/<?= $user['id'] ?>" class="text-yellow-600 hover:text-yellow-900 mr-3" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                <?php if($user['role'] != 1):?>
                                 <button  onclick="showModal('deleteModal', '/admin/users/delete/<?= $user['id'] ?>')" class="text-red-600 hover:text-red-900" title="Hapus">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
