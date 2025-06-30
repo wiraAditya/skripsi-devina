@@ -66,10 +66,10 @@
                                 <a href="/admin/menu/edit/<?= $menu['id'] ?>" class="text-yellow-600 hover:text-yellow-900 mr-3" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <button onclick="showModal('deleteModal', '/admin/menu/delete/<?= $menu['id'] ?>')" 
+                                <!-- <button onclick="showModal('deleteModal', '/admin/menu/delete/<?= $menu['id'] ?>')" 
                                     class="text-red-600 hover:text-red-900 mr-3" title="Hapus">
                                     <i class="fas fa-trash-alt"></i>
-                                </button>
+                                </button> -->
                                 <a href="/admin/menu/toggle-status/<?= $menu['id'] ?>" 
                                     class="<?= $menu['status'] == $model::STATUS_AKTIF ? 'text-yellow-600 hover:text-yellow-900' : 'text-green-600 hover:text-green-900' ?>" 
                                     title="<?= $menu['status'] == $model::STATUS_AKTIF ? 'Set Tidak Tersedia' : 'Set Aktif' ?>">

@@ -29,7 +29,7 @@
 <h1 class="text-2xl font-bold mb-6">Manajemen Order</h1>
     <div class="bg-white p-6 rounded shadow">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-semibold">Daftar Order</h2>
+            <h2 class="text-xl font-semibold">Daftar Semua Order</h2>
             <div class="flex space-x-4">
                 <form method="get" action="" class="flex flex-wrap items-center gap-4">
                     <input 
@@ -65,37 +65,6 @@
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                 <?= session()->getFlashdata('success') ?>
             </div>
-        <?php endif; ?>
-
-        <!-- Cashier Session Status Card -->
-        <?php if($needValidateSession): ?>
-        <div class="mb-6 p-4 rounded-lg <?= $cashierSession ? 'bg-blue-50 border border-blue-200' : 'bg-yellow-50 border border-yellow-200' ?>">
-            <?php if ($cashierSession): ?>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="font-bold text-lg text-blue-800">Sesi Kasir Aktif</h3>
-                        <p class="text-sm">Dibuka: <?= date('d/m/Y H:i', strtotime($cashierSession['start_time'])) ?></p>
-                        <p class="text-sm">Saldo Awal: Rp <?= number_format($cashierSession['starting_cash'], 0, ',', '.') ?></p>
-                        <p class="text-sm">Sesi Kasir: <?= $cashierSession['nama'] ?> -- <?= $cashierSession['email'] ?></p>
-                    </div>
-                    <a href="/admin/sessions/close/<?= $cashierSession['id'] ?>" 
-                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm">
-                    Tutup Sesi
-                    </a>
-                </div>
-            <?php else: ?>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="font-bold text-lg text-yellow-800">Kasir Belum Dibuka</h3>
-                        <p class="text-sm">Silakan buka sesi kasir untuk memproses pembayaran tunai</p>
-                    </div>
-                    <a href="/admin/sessions/open" 
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm">
-                    Buka Sesi Kasir
-                    </a>
-                </div>
-            <?php endif; ?>
-        </div>
         <?php endif; ?>
 
         <div class="overflow-x-auto">
@@ -142,16 +111,9 @@
                             <?= $index + 1 + ($pager->getCurrentPage() - 1) * $pager->getPerPage() ?>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <?php if($needValidateSession && $cashierSession):?>
-                            <a href="/admin/order/detail/<?= $order['id'] ?>" class="text-blue-600 hover:text-blue-900 mr-3" title="View Details">
+                            <a href="/admin/all-order/detail/<?= $order['id'] ?>" class="text-blue-600 hover:text-blue-900 mr-3" title="View Details">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <?php if($order['status'] == 'status_waiting_cash'): ?>
-                            <button onclick="showModalWithOrder('deleteModal', '/admin/order/cancel/<?= $order['id'] ?>', '<?= $order['transaction_code'] ?>')" class="text-red-600 hover:text-red-900" title="Hapus">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                            <?php endif; ?>
-                            <?php endif; ?>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900"><?= esc($order['transaction_code']) ?></div>
@@ -160,7 +122,7 @@
                             <?= esc($order['tanggal']) ?>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <?= number_format(esc($order['total'] -  + $order['tax']), 0, ',', '.') ?>
+                            <?= number_format(esc($order['total'] - $order['tax']), 0, ',', '.') ?>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <?= number_format(esc($order['tax']), 0, ',', '.') ?>

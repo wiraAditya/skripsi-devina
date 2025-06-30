@@ -52,6 +52,7 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
         $routes->post('update/(:num)', 'KategoriController::update/$1');
         $routes->delete('delete/(:num)', 'KategoriController::delete/$1');
     });
+
     $routes->group('order', function($routes) {
         $routes->get('/', 'OrderController::index');
         $routes->get('detail/(:num)', 'OrderController::detail/$1');
@@ -60,6 +61,16 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
         $routes->get('proccess/(:num)', 'OrderController::proccess/$1');
         $routes->delete('cancel/(:num)', 'OrderController::cancel/$1');
         $routes->get('print-receipt/(:num)', 'OrderController::printReceipt/$1');
+    });
+
+    $routes->group('all-order', function($routes) {
+        $routes->get('/', 'AllOrderController::index');
+        $routes->get('detail/(:num)', 'AllOrderController::detail/$1');
+        $routes->get('confirm/(:num)', 'AllOrderController::confirm/$1');
+        $routes->get('done/(:num)', 'AllOrderController::done/$1');
+        $routes->get('proccess/(:num)', 'AllOrderController::proccess/$1');
+        $routes->delete('cancel/(:num)', 'AllOrderController::cancel/$1');
+        $routes->get('print-receipt/(:num)', 'AllOrderController::printReceipt/$1');
     });
     
     $routes->group('menu', function($routes) {
@@ -71,6 +82,18 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
         $routes->delete('delete/(:num)', 'MenuController::delete/$1');
         $routes->get('toggle-status/(:num)', 'MenuController::toggleStatus/$1');
 
+    });
+    $routes->group('sessions',  function($routes) {
+        $routes->get('open', 'CashierSessionController::open');
+        $routes->post('open', 'CashierSessionController::storeOpen');
+        $routes->get('close/(:num)', 'CashierSessionController::close/$1');
+        $routes->post('close/(:num)', 'CashierSessionController::storeClose/$1');
+    });
+    $routes->group('laporan', function($routes) {
+        $routes->get('penjualan', 'LaporanController::laporanPenjualan');
+        $routes->get('cetak-penjualan', 'LaporanController::cetakLaporanPenjualan');
+        $routes->get('harian', 'LaporanController::laporanHarian');
+        $routes->get('cetak-harian', 'LaporanController::cetakLaporanHarian');
     });
 });
 

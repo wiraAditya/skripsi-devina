@@ -7,7 +7,7 @@ class OrderModel extends Model
 {
     protected $table = 'order';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['tanggal', 'total', 'catatan', 'status', 'payment_method', 'transaction_code', 'tax'];
+    protected $allowedFields = ['tanggal', 'total', 'catatan', 'status', 'payment_method', 'transaction_code', 'tax', 'cashier_session_id'];
     protected $useTimestamps = false;
 
     // Payment method constants
@@ -27,6 +27,7 @@ class OrderModel extends Model
      * @param int $orderId
      * @return array
      */
+    
     public function getOrderByIdWithDetails(int $orderId): array
     {
         return $this->select('order.*, order_detail.id as detail_id, order_detail.qty, order_detail.harga, 

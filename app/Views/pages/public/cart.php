@@ -114,6 +114,10 @@
         <p class="text-sm italic text-center mt-2 text-gray-400">
           <?= count($cartItems) ? "" : "Keranjang belanja anda masih kosong"?>
         </p>
+        <div class="mt-8">
+
+          <a class="px-4 py-2 mt-4 rounded-md bg-white border-2 border-amber-500 text-amber-500" href="/menu"><i class="fas fa-arrow-left"></i> Pilih menu </a>
+        </div>
         
       </div>
       

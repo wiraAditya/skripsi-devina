@@ -1,4 +1,9 @@
 <?php
+$roles = [
+    1 => 'Admin',
+    2 => 'Barista',
+    3 => 'Kasir',
+];
 $sidebar = [
     'dashboard' => [
         'title' => 'Dashboard',
@@ -29,12 +34,33 @@ $sidebar = [
         'children' => []
     ],
     'order' => [
-        'title' => 'Orders',
-        'icon' => 'fas fa-utensils',
+        'title' => $roles[session()->get('user_role')].' Orders',
+        'icon' => 'fas fa-money-bill',
         'url' => site_url('admin/order'),
         'allowed_roles' => [1, 2, 3], 
         'children' => []
-    ]
+    ],
+    'all_orders' => [
+        'title' => 'All Orders',
+        'icon' => 'fas fa-money-bill',
+        'url' => site_url('admin/all-order'),
+        'allowed_roles' => [1, 2, 3], 
+        'children' => []
+    ],
+    'laporan_penjualan' => [
+        'title' => 'Laporan Penjualan',
+        'icon' => 'fas fa-money-bill',
+        'url' => site_url('admin/laporan/penjualan'),
+        'allowed_roles' => [1, 2, 3], 
+        'children' => []
+    ],
+    'laporan_harian' => [
+        'title' => 'Laporan Harian',
+        'icon' => 'fas fa-money-bill',
+        'url' => site_url('admin/laporan/harian'),
+        'allowed_roles' => [1, 2, 3], 
+        'children' => []
+    ],
 ];
 ?>
 
@@ -54,7 +80,7 @@ $sidebar = [
             $currentRole = session()->get('user_role'); // Make sure this is set in your login
             $currentRoleText = session()->get('user_role_text'); // Make sure this is set in your login
             foreach ($sidebar as $route => $item): 
-                // Check if user role has access to this menu item
+            // Check if user role has access to this menu item
                 if (!empty($item['allowed_roles'])) {
                     if (!in_array($currentRole, $item['allowed_roles'])) {
                         continue; // Skip this item if role not allowed

@@ -56,28 +56,6 @@
             </div>
         </div>
     </div>
-    <?php if($order['status'] == "status_waiting_cash" && (session()->get('user_role') == 3)):?>
-    <div class="mt-6">
-        <a href="/admin/order/confirm/<?=$order['id']?>" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded transition duration-200">
-            Konfirmasi Pembayaran
-        </a>
-    </div>
-    <?php endif;?>
-    <?php if($order['status'] == "status_paid" && (session()->get('user_role') == 2)):?>
-        <div class="mt-6">
-            <a href="/admin/order/proccess/<?=$order['id']?>" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded transition duration-200">
-                Prosess
-            </a>
-        </div>
-    <?php endif;?>
-
-    <?php if($order['status'] == "status_process" &&(session()->get('user_role') == 2)):?>
-        <div class="mt-6">
-            <a href="/admin/order/done/<?=$order['id']?>" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded transition duration-200">
-                Selesaikan Pesanan
-            </a>
-        </div>
-    <?php endif;?>
 
      <!-- <div class="mt-6">
         <a href="/admin/order/print-receipt/<?=$order['id']?>" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded transition duration-200">

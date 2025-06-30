@@ -21,3 +21,24 @@ new
 - re order the order for admin and kasir to desc
 - payment status in receipt, if cash add details to make customer to go to cashier.
 - remove cetak receipt from cashier
+
+
+qeury that need to be noted:
+CREATE TABLE `cashier_sessions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `start_time` DATETIME NOT NULL,
+  `end_time` DATETIME DEFAULT NULL,
+  `starting_cash` INT NOT NULL DEFAULT 0,  -- Opening balance (in IDR)
+  `ending_cash` INT DEFAULT NULL,          -- Physical cash counted at close
+  `expected_cash` INT DEFAULT NULL,        -- Calculated (starting_cash + cash sales)
+  `status` ENUM('open','closed') DEFAULT 'open',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+ALTER TABLE `order` 
+ADD COLUMN `cashier_session_id` INT NULL AFTER `id`,
+ADD CONSTRAINT `fk_order_session` 
+  FOREIGN KEY (`cashier_session_id`) REFERENCES `cashier_sessions` (`id`);
