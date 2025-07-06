@@ -30,7 +30,9 @@ class OrderController extends BaseController
 
         [$filterStatus, $sortOrder] = $this->getFilterStatusAndSortOrder();
 
-        $orderModel->whereIn('status', $filterStatus)->orderBy('id', $sortOrder);
+        
+        $orderModel->whereIn('status', $filterStatus)->orderBy('tanggal', 'DESC');
+        
         $perPage = 10;
         
         // Handle search and filter functionality

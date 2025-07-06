@@ -10,7 +10,7 @@ class TokenProtection implements FilterInterface
 {
     // Hardcoded token - update this when client pays
     // Use the value from your Node.js generator
-    private $token = "eyJ2YWxpZF91bnRpbCI6MTc1MTM1NTEzOSwiaXNfcGVybWFuZW50IjpmYWxzZSwiY3JlYXRlZF9hdCI6MTc0ODc2MzEzOSwiY2xpZW50X2lkIjoiWU9VUl9DTElFTlRfSUQiLCJzaWduYXR1cmUiOiJlMjAzM2EyOGRhMTQ2ZTJjMjNkMWE0Y2QwMjJlZjdkYTZhY2U3NmU2YjVjODQxMzI2NTUwOTMyOTEyM2I0OWU3In0=";
+    private $token = "eyJ2YWxpZF91bnRpbCI6bnVsbCwiaXNfcGVybWFuZW50Ijp0cnVlLCJjcmVhdGVkX2F0IjoxNzUxMzYwNzY0LCJjbGllbnRfaWQiOiJZT1VSX0NMSUVOVF9JRCIsInNpZ25hdHVyZSI6IjIwNTk2NjhjMjMyYzlhYTAzMTExOTEwNDAzMjZiNWRhYzBkYzQ0MTRkMTBjNWI1NTA5MGVhODIxZjYyYTFlZWUifQ==";
     
     public function before(RequestInterface $request, $arguments = null)
     {

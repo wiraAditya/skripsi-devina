@@ -21,7 +21,7 @@ class AllOrderController extends BaseController
 
         [$filterStatus, $sortOrder] = $this->getFilterStatusAndSortOrder();
 
-        $orderModel->orderBy('id', $sortOrder);
+        $orderModel->orderBy('tanggal', 'DESC');
         $perPage = 10;
         
         // Handle search and filter functionality

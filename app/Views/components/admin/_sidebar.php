@@ -51,14 +51,14 @@ $sidebar = [
         'title' => 'Laporan Penjualan',
         'icon' => 'fas fa-money-bill',
         'url' => site_url('admin/laporan/penjualan'),
-        'allowed_roles' => [1, 2, 3], 
+        'allowed_roles' => [1, 3], 
         'children' => []
     ],
     'laporan_harian' => [
         'title' => 'Laporan Harian',
         'icon' => 'fas fa-money-bill',
         'url' => site_url('admin/laporan/harian'),
-        'allowed_roles' => [1, 2, 3], 
+        'allowed_roles' => [ 3], 
         'children' => []
     ],
 ];
