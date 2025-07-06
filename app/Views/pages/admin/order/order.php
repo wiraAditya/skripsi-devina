@@ -142,7 +142,7 @@
                             <?= $index + 1 + ($pager->getCurrentPage() - 1) * $pager->getPerPage() ?>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <?php if($needValidateSession && $cashierSession):?>
+                            <?php if($needValidateSession && $cashierSession || !$cashierSession):?>
                             <a href="/admin/order/detail/<?= $order['id'] ?>" class="text-blue-600 hover:text-blue-900 mr-3" title="View Details">
                                 <i class="fas fa-eye"></i>
                             </a>
