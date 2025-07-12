@@ -41,10 +41,18 @@ $sidebar = [
         'children' => []
     ],
     'all_orders' => [
-        'title' => 'All Orders',
+        'title' => 'History Orders',
         'icon' => 'fas fa-money-bill',
         'url' => site_url('admin/all-order'),
-        'allowed_roles' => [1, 2, 3], 
+        'allowed_roles' => [2, 3], 
+        'children' => []
+    ],
+    
+    'laporan_harian' => [
+        'title' => 'Laporan Harian',
+        'icon' => 'fas fa-money-bill',
+        'url' => site_url('admin/laporan/harian'),
+        'allowed_roles' => [ 3], 
         'children' => []
     ],
     'laporan_penjualan' => [
@@ -52,13 +60,6 @@ $sidebar = [
         'icon' => 'fas fa-money-bill',
         'url' => site_url('admin/laporan/penjualan'),
         'allowed_roles' => [1, 3], 
-        'children' => []
-    ],
-    'laporan_harian' => [
-        'title' => 'Laporan Harian',
-        'icon' => 'fas fa-money-bill',
-        'url' => site_url('admin/laporan/harian'),
-        'allowed_roles' => [ 3], 
         'children' => []
     ],
 ];
@@ -69,7 +70,7 @@ $sidebar = [
     <div class="p-4 border-b border-gray-700">
         <h2 class="text-lg font-semibold flex items-center">
             <i class="fas fa-cog mr-2 text-blue-400"></i>
-            <span>Admin Panel</span>
+            <span>Korner Circle K</span>
         </h2>
     </div>
 

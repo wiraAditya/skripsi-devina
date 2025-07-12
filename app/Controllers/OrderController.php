@@ -21,6 +21,14 @@ class OrderController extends BaseController
             'status_done' => 'Selesai',
             'status_canceled' => 'Dibatalkan',
         ];
+        if(session()->get('user_role') == 2) {
+            $statusOptions = [
+                '' => 'Semua Status',
+                'status_paid' => 'Sudah Dibayar',
+                'status_process' => 'Diproses',
+            ];
+        }
+        
         $cashierSession = session()->get('user_role') == 3 ? $cashierSessionModel
         ->select("cashier_sessions.*, user.nama, user.email")
         ->where('cashier_sessions.status', 'open')
