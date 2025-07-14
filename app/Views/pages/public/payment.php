@@ -53,7 +53,12 @@
             </div>
             
           </div>
-          
+          <div class="mt-8">
+            <!-- Nama Field -->
+            <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
+            <input required type="text" id="nama" name="nama" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-amber-500 focus:border-amber-500" placeholder="Masukkan nama Anda">
+            
+          </div>
           <!-- Order Notes -->
           <div class="mt-8">
             <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Catatan Pesanan (Opsional)</label>
@@ -146,7 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
       form.action = `payment/process/${kind}`;
       const formData = new FormData();
       formData.append('notes', document.getElementById("notes").value);
+      formData.append('nama', document.getElementById("nama").value);
+      console.log('nama', document.getElementById("nama").value);
+      
       for (let [key, value] of formData.entries()) {
+        console.log('value', value);
+        console.log('key', key);
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = key;
@@ -156,7 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Append the form to the body
       document.body.appendChild(form);
-
+      console.log(document.body);
+      // return;
       // Submit the form
       form.submit();
   }

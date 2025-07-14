@@ -49,12 +49,16 @@ class PaymentController extends BaseController
             'tanggal' => date('Y-m-d H:i:s'),
             'total' => $total,
             'catatan' => $this->request->getPost('notes') ?? '',
+            'nama' => $this->request->getPost('nama') ?? '',
             'status' => $kind == $this->orderModel::PAYMENT_DIGITAL ?  $this->orderModel::STATUS_PAID : $this->orderModel::STATUS_WAITING_CASH, 
             'payment_method' => $kind, 
             'transaction_code' => 'TR-' . date('YmdHis'),
             'tax' => $tax
         ];
-
+        print_r($this->request->getPost('nama'));
+        print_r($orderData);
+        
+        // die();
         // Start database transaction
         $db = db_connect();
         $db->transStart();

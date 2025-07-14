@@ -7,7 +7,7 @@ class OrderModel extends Model
 {
     protected $table = 'order';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['tanggal', 'total', 'catatan', 'status', 'payment_method', 'transaction_code', 'tax', 'cashier_session_id'];
+    protected $allowedFields = ['tanggal', 'total', 'catatan', 'status', 'payment_method', 'transaction_code', 'tax', 'cashier_session_id', "nama"];
     protected $useTimestamps = false;
 
     // Payment method constants
